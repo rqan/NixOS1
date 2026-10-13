@@ -40,7 +40,7 @@ NixOS/
 ### 1. Salin atau Clone Repositori ke Komputer Baru
 Di komputer baru yang sudah terpasang NixOS standar:
 ```bash
-git clone <URL_REPOSITORI> ~/GitHub/NixOS
+git clone https://github.com/rqan/NixOS1.git ~/GitHub/NixOS
 cd ~/GitHub/NixOS
 ```
 *(Atau salin seluruh folder ini via USB flashdisk/LAN ke `~/GitHub/NixOS`).*
