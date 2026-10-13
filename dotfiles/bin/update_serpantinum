@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo "Updating Serpantinum flake input..."
+cd /etc/nixos || exit 1
+sudo nix flake lock --update-input serpantinum
+echo "Rebuilding NixOS to apply QML UI changes..."
+sudo nixos-rebuild switch
+echo "Reloading Quickshell..."
+~/.config/serpantinum/src/scripts/qs_manager.sh reload
+echo "Done!"

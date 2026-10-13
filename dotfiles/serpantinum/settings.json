@@ -1,0 +1,160 @@
+{
+  "general": {
+    "performance": false,
+    "language": "en",
+    "location": {
+      "ip": "103.162.220.238",
+      "latitude": -7.6298,
+      "longitude": 111.5239,
+      "city": "Madiun",
+      "region": "East Java",
+      "region_code": "JI",
+      "country_name": "Indonesia",
+      "country_code": "ID",
+      "postal": null,
+      "timezone": "Asia/Jakarta",
+      "utc_offset": "+0700",
+      "currency": "IDR",
+      "languages": "id,en,nl,jv",
+      "asn": "AS139952",
+      "org": "PT Trisari Data Indonusa",
+      "source": "ipapi.co",
+      "updated_at": 1789915172
+    },
+    "avatarPath": "/home/focarix/Pictures/Profile Pictures/The Fallen Angel.jpg",
+    "muteSfx": false,
+    "sfxVolume": 100,
+    "screenshotCaptureOnRelease": true,
+    "quickactions": true,
+    "weatherInterval": 15,
+    "weatherUnit": "metric",
+    "desktopLyrics": false
+  },
+  "notifications": {
+    "dnd": false,
+    "position": "bottom right",
+    "horizontalPosition": 88,
+    "verticalPosition": 90,
+    "sound": true,
+    "soundFile": "",
+    "showEmptyGraphic": true
+  },
+  "dock": {
+    "enabled": false,
+    "position": "bottom",
+    "onTop": true,
+    "elementSize": 44,
+    "floating": false,
+    "opacity": 100,
+    "exclusive": false,
+    "autohide": false,
+    "smartAutohide": true,
+    "autohideTimeout": 1000,
+    "editing": false,
+    "apps": [
+      {
+        "name": "Spotify",
+        "comment": "",
+        "desktop_id": "spotify",
+        "icon": "spotify-client"
+      }
+    ],
+    "overrideBoundsCorrection": false,
+    "enableScrolling": false,
+    "visibleElements": 7,
+    "hoverScale": 120,
+    "cascadeScale": false
+  },
+  "wallpaperDir": "/home/focarix/Pictures/Wallpapers",
+  "display": {
+    "monitors": {
+      "eDP-1": {
+        "enabled": false,
+        "scale": 1
+      }
+    }
+  },
+  "theme": {
+    "fontFamily": "JetBrainsMono Nerd Font",
+    "borderRadius": 8,
+    "activePreset": "Matugen",
+    "matugen": true,
+    "colors": {
+      "base": "#000000",
+      "blue": "#ffffff",
+      "crust": "#000000",
+      "green": "#ffffff",
+      "mantle": "#050505",
+      "maroon": "#808080",
+      "mauve": "#d0d0d0",
+      "overlay0": "#5a5a5a",
+      "overlay1": "#7a7a7a",
+      "overlay2": "#9a9a9a",
+      "peach": "#cccccc",
+      "pink": "#e0e0e0",
+      "red": "#a0a0a0",
+      "sapphire": "#e0e0e0",
+      "subtext0": "#a0a0a0",
+      "subtext1": "#c0c0c0",
+      "surface0": "#1a1a1a",
+      "surface1": "#2a2a2a",
+      "surface2": "#3a3a3a",
+      "teal": "#c0c0c0",
+      "text": "#ffffff",
+      "yellow": "#ffffff"
+    }
+  },
+  "bar": {
+    "workspacesStyle": "pacman",
+    "sideWorkspacesStyle": "pills",
+    "modules": {
+      "left": [
+        "left",
+        "workspaces",
+        "media",
+        "vis"
+      ],
+      "center": [
+        "timedate",
+        "info",
+        "weather"
+      ],
+      "right": [
+        "focus",
+        "sysmon",
+        "tray",
+        [
+          "kb",
+          "wifi",
+          "bt",
+          "vol",
+          "bat"
+        ]
+      ]
+    },
+    "groupColors": {
+      "g_kb": "#b5d087"
+    },
+    "position": "top",
+    "width": 100,
+    "opacity": 85,
+    "style": "modular",
+    "distinctPills": false,
+    "time": {
+      "format": "HH:mm:ss"
+    },
+    "autohide": false,
+    "autohideTimeout": 1000
+  },
+  "sideBar": {
+    "workspacesStyle": "pills"
+  },
+  "launcher": {
+    "position": "bottom",
+    "width": 660,
+    "itemCount": 6,
+    "terminalCommand": "kitty -e",
+    "smartRanking": true
+  }
+}
+

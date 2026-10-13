@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+echo "Applying SDDM sync configuration..."
+sudo cp /tmp/configuration.nix /etc/nixos/configuration.nix
+echo "Rebuilding NixOS..."
+sudo nixos-rebuild switch
+echo "Done!"

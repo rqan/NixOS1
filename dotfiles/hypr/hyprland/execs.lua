@@ -1,0 +1,55 @@
+local vars = require("variables")
+local fn   = require("utils.functions")
+
+hl.on("hyprland.start", function()
+    -- Load Hyprspace Plugin (disabled: broken on this NixOS version, causes overhead)
+    -- hl.exec_cmd("hyprctl plugin load /run/current-system/sw/lib/libhyprspace.so")
+
+    -- Background and Desktop Helpers
+    hl.exec_cmd("swaybg -c '#11111b'")
+    hl.exec_cmd("python3 " .. os.getenv("HOME") .. "/.config/hypr/scripts/infinite_desktop_core.py 1.6 > /tmp/infinite-desktop.log 2>&1")
+
+    -- Start Serpantinum shell
+    hl.exec_cmd("uwsm app -- " .. os.getenv("HOME") .. "/.local/bin/start-serpantinum.sh")
+
+    -- Keyring and auth
+    hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
+
+    -- Clipboard history
+    hl.exec_cmd("wl-paste --type text --watch cliphist store")
+    hl.exec_cmd("wl-paste --type image --watch cliphist store")
+
+    -- Auto delete trash 30 days old
+
+    -- Cursors
+    hl.exec_cmd("hyprctl setcursor " .. vars.cursorTheme .. " " .. vars.cursorSize)
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme " .. vars.cursorTheme)
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-size " .. vars.cursorSize)
+
+    -- Location provider and night light
+
+    -- Forward bluetooth media commands to MPRIS
+    hl.exec_cmd("mpris-proxy")
+
+    -- Start shell
+end)
+
+-- Resizer listeners
+local function apply_resizer_rules(win)
+    local float_center = {
+        hl.dsp.window.float({ action = "on", window = win }),
+        hl.dsp.window.center({ window = win }),
+    }
+    local pip_actions = fn.move_actions(win) or {}
+
+    -- Bitwarden
+    fn.resizer(win, "Bitwarden", 20, 54, float_center, true, "class")                                       -- Native app
+    fn.resizer(win, "^Extension: %(Bitwarden Password Manager%) %- Bitwarden", 20, 54, float_center, false) -- Firefox
+    fn.resizer(win, "nngceckbapebfimnlniiiahkandclblb", 20, 54, float_center, true, "class")                -- Chromium
+
+    -- Picture in picture
+    fn.resizer(win, "Picture[- ]in[- ][Pp]icture", 0, 0, pip_actions, false)
+end
+
+hl.on("window.title", apply_resizer_rules)
+hl.on("window.open", apply_resizer_rules)
