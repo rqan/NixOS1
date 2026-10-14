@@ -2,6 +2,34 @@
 
 let
   spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+
+  # Wrapper biner Antigravity yang cerdas: mendeteksi instalasi lokal atau mengunduhnya otomatis
+  antigravityWrapper = pkgs.writeShellScriptBin "antigravity" ''
+    OPT_DIR="$HOME/.local/opt/Antigravity-x64"
+    if [ ! -d "$OPT_DIR" ]; then
+      if [ -f "$HOME/GitHub/NixOS/scripts/install-antigravity.sh" ]; then
+        echo "==> Antigravity IDE belum terpasang. Menjalankan installer otomatis..." >&2
+        bash "$HOME/GitHub/NixOS/scripts/install-antigravity.sh"
+      fi
+    fi
+
+    if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+      if [ -x "$OPT_DIR/bin/antigravity-ide" ]; then
+        exec "$OPT_DIR/bin/antigravity-ide" "$@"
+      fi
+    fi
+
+    if [ -x "$OPT_DIR/antigravity" ]; then
+      exec "$OPT_DIR/antigravity" "$@"
+    elif [ -x "$OPT_DIR/antigravity-ide" ]; then
+      exec "$OPT_DIR/antigravity-ide" "$@"
+    elif [ -x "$HOME/.local/bin/antigravity" ]; then
+      exec "$HOME/.local/bin/antigravity" "$@"
+    else
+      echo "Error: Biner Antigravity tidak ditemukan." >&2
+      exit 1
+    fi
+  '';
 in
 {
   # Flatpak & Podman
@@ -11,7 +39,7 @@ in
   # Gamescope for gaming and vkBasalt shaders
   programs.gamescope.enable = true;
 
-  # Nix-LD for unpatched dynamic binaries
+  # Nix-LD for unpatched dynamic binaries (Antigravity IDE, Electron, custom binaries)
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
@@ -22,6 +50,7 @@ in
       dbus
       atk
       at-spi2-atk
+      at-spi2-core
       cups
       expat
       libdrm
@@ -39,6 +68,10 @@ in
       libXrandr
       libxcb
       libgbm
+      systemd
+      libnotify
+      udev
+      vulkan-loader
     ];
   };
 
@@ -74,6 +107,9 @@ in
 
   # System-wide packages
   environment.systemPackages = [
+    # Custom Wrappers
+    antigravityWrapper
+
     # Custom Desktop Shortcuts (.desktop)
     (pkgs.makeDesktopItem {
       name = "github-desktop";
@@ -93,9 +129,10 @@ in
       name = "antigravity";
       desktopName = "Antigravity";
       comment = "Google Antigravity IDE";
-      exec = "/home/focarix/.local/opt/Antigravity-x64/antigravity";
+      exec = "antigravity %F";
       icon = "antigravity";
-      categories = [ "Development" "IDE" ];
+      categories = [ "Development" "IDE" "TextEditor" ];
+      mimeTypes = [ "text/plain" "inode/directory" ];
     })
     (pkgs.makeDesktopItem {
       name = "lerd";

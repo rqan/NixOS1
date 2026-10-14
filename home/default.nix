@@ -104,22 +104,34 @@
     executable = true;
   };
 
-  # Activation hooks: Pastikan file writable & aset visual tersedia
+  # Activation hooks: Pastikan file writable, aset visual tersedia, & lock file bersih
   home.activation.setupSerpantinumAndAssets = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    # Serpantinum settings (harus writable agar UI bisa update konfigurasi)
+    # 1. Bersihkan file lock Chromium/Electron (Brave, Edge, Code, Antigravity) yang memblokir startup jika disalin antar-komputer
+    $DRY_RUN_CMD rm -f "$HOME/.config/BraveSoftware/Brave-Browser/Singleton"* 2>/dev/null || true
+    $DRY_RUN_CMD rm -f "$HOME/.config/microsoft-edge/Singleton"* 2>/dev/null || true
+    $DRY_RUN_CMD rm -f "$HOME/.config/google-chrome/Singleton"* 2>/dev/null || true
+    $DRY_RUN_CMD rm -f "$HOME/.config/Code/Singleton"* 2>/dev/null || true
+    $DRY_RUN_CMD rm -f "$HOME/.config/Antigravity/Singleton"* 2>/dev/null || true
+
+    # 2. Serpantinum settings (harus writable agar UI bisa update konfigurasi)
     $DRY_RUN_CMD mkdir -p $HOME/.config/serpantinum
     if [ ! -f $HOME/.config/serpantinum/settings.json ]; then
       $DRY_RUN_CMD cp ${../dotfiles/serpantinum/settings.json} $HOME/.config/serpantinum/settings.json
       $DRY_RUN_CMD chmod 644 $HOME/.config/serpantinum/settings.json
     fi
 
-    # Direktori Wallpapers & Profile Pictures
-    $DRY_RUN_CMD mkdir -p "$HOME/Pictures/Wallpapers" "$HOME/Pictures/Profile Pictures"
+    # 3. Direktori Wallpapers & Profile Pictures
+    $DRY_RUN_CMD mkdir -p "$HOME/Pictures/Wallpapers" "$HOME/Pictures/Profile Pictures" "$HOME/.local/share/icons"
     if [ ! -f "$HOME/Pictures/Profile Pictures/The Fallen Angel.jpg" ]; then
       $DRY_RUN_CMD cp "${../assets/profile/the_fallen_angel.jpg}" "$HOME/Pictures/Profile Pictures/The Fallen Angel.jpg"
     fi
     if [ ! -f "$HOME/Pictures/Wallpapers/default_desktop.jpg" ]; then
       $DRY_RUN_CMD cp "${../assets/wallpapers/default_desktop.jpg}" "$HOME/Pictures/Wallpapers/default_desktop.jpg"
+    fi
+
+    # 4. Ikon Antigravity
+    if [ -f "${../assets/icons/antigravity.png}" ]; then
+      $DRY_RUN_CMD cp "${../assets/icons/antigravity.png}" "$HOME/.local/share/icons/antigravity.png"
     fi
   '';
 }

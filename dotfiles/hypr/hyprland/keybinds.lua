@@ -160,7 +160,7 @@ create_bind(vars.kbAudioSettings, hl.dsp.exec_cmd(vars.audioSettings))
 create_bind(vars.kbShowSidebar, hl.dsp.exec_cmd("bash -c 'echo wifi > ~/.cache/serpantinum/network/mode; serpantinum msg toggle network wifi'"))  -- WiFi (selalu buka tab WiFi)
 create_bind("SUPER + B", hl.dsp.exec_cmd("serpantinum msg toggle system"))            -- Control Center (System)
 create_bind("SUPER + M", hl.dsp.exec_cmd("serpantinum msg toggle music"))             -- Music Player
-create_bind("SUPER + A", hl.dsp.exec_cmd("/home/focarix/.local/opt/Antigravity-x64/antigravity"))  -- Antigravity
+create_bind("SUPER + A", hl.dsp.exec_cmd("antigravity"))  -- Antigravity
 create_bind("SUPER + W", hl.dsp.exec_cmd("serpantinum msg toggle wallpaper"))
 create_bind("SUPER + I", hl.dsp.exec_cmd("serpantinum msg toggle guide"))
 create_bind(vars.kbSession, hl.dsp.exec_cmd("serpantinum msg toggle session"))

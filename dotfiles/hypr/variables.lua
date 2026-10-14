@@ -110,7 +110,7 @@ return {
 
     -- Apps
     kbTerminal                 = "SUPER + T",
-    kbBrowser                  = "",  -- Removed: Super+B is now battery widget
+    kbBrowser                  = "SUPER + SHIFT + B",  -- Browser cepat (Brave)
     kbDiscord                  = "SUPER + D",
     kbEditor                   = "SUPER + C",
     kbFileExplorer             = "SUPER + E",
