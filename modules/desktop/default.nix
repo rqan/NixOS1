@@ -65,7 +65,6 @@ in
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     XDG_SESSION_TYPE = "wayland";
-    VK_LAYER_PATH = "${pkgs.vkbasalt}/share/vulkan/explicit_layer.d";
     QS_ICON_THEME = "WhiteSur";
   };
 
