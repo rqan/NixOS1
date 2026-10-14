@@ -8,6 +8,9 @@ in
   services.flatpak.enable = true;
   virtualisation.podman.enable = true;
 
+  # Gamescope for gaming and vkBasalt shaders
+  programs.gamescope.enable = true;
+
   # Nix-LD for unpatched dynamic binaries
   programs.nix-ld = {
     enable = true;
@@ -71,12 +74,37 @@ in
 
   # System-wide packages
   environment.systemPackages = [
-    # Custom desktop item
+    # Custom Desktop Shortcuts (.desktop)
     (pkgs.makeDesktopItem {
       name = "github-desktop";
       desktopName = "GitHub Desktop";
       exec = "github-desktop %u";
       mimeTypes = [ "x-scheme-handler/x-github-client" ];
+    })
+    (pkgs.makeDesktopItem {
+      name = "sober-shader";
+      desktopName = "Roblox (Sober + Shader & Gamescope)";
+      comment = "Play Roblox with vkBasalt and Gamescope";
+      exec = "env ENABLE_VKBASALT=1 gamescope -W 1920 -H 1080 -r 60 -F fsr -- flatpak run org.vinegarhq.Sober";
+      icon = "org.vinegarhq.Sober";
+      categories = [ "Game" ];
+    })
+    (pkgs.makeDesktopItem {
+      name = "antigravity";
+      desktopName = "Antigravity";
+      comment = "Google Antigravity IDE";
+      exec = "/home/focarix/.local/opt/Antigravity-x64/antigravity";
+      icon = "antigravity";
+      categories = [ "Development" "IDE" ];
+    })
+    (pkgs.makeDesktopItem {
+      name = "lerd";
+      desktopName = "Lerd";
+      genericName = "Local PHP development environment";
+      comment = "Bring the environment up, then open the Lerd dashboard";
+      exec = "lerd dashboard --splash";
+      icon = "lerd";
+      categories = [ "Development" ];
     })
 
     # Pengolah Foto & Video
@@ -87,6 +115,9 @@ in
     pkgs.brave
     pkgs.microsoft-edge
 
+    # Komunikasi
+    pkgs.vesktop
+
     # Pemrograman & Developer Tools
     pkgs.proton-vpn
     pkgs.git
@@ -96,6 +127,8 @@ in
     pkgs.dotnet-sdk_8
     pkgs.nodejs
     pkgs.pnpm
+    pkgs.php
+    pkgs.phpPackages.composer
     (pkgs.python3.withPackages (ps: with ps; [ evdev ]))
     (pkgs.dbeaver-bin.overrideAttrs (_finalAttrs: _previousAttrs: {
       version = "26.2.2";
@@ -113,6 +146,7 @@ in
     pkgs.amberol
     pkgs.cmus
     pkgs.pavucontrol
+    pkgs.easyeffects
     pkgs.playerctl
     pkgs.pulseaudio
 
@@ -127,9 +161,11 @@ in
     pkgs.vulkan-tools
     pkgs.mesa-demos
     pkgs.vkbasalt
+    pkgs.gamescope
 
     # Tema, Cursor, & Ikon
     pkgs.whitesur-gtk-theme
+    pkgs.whitesur-icon-theme
     pkgs.whitesur-cursors
     pkgs.papirus-icon-theme
 
@@ -143,5 +179,11 @@ in
     pkgs.pipes
     pkgs.cmatrix
     pkgs.sptlrx
+    pkgs.cliphist
+    pkgs.jq
+    pkgs.eza
+    pkgs.zoxide
+    pkgs.direnv
+    pkgs.lazygit
   ];
 }

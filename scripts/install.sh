@@ -61,14 +61,21 @@ if [ ! -f "$HOME/.config/serpantinum/settings.json" ]; then
     chmod 644 "$HOME/.config/serpantinum/settings.json"
 fi
 
-# 5. Stage semua file ke git agar Nix Flakes mengenali file baru
+# 5. Pasang Flatpak Sober (Roblox) jika flatpak aktif
+if command -v flatpak >/dev/null 2>&1; then
+    echo "==> Mengonfigurasi Flathub dan memasang Sober (Roblox)..."
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo || true
+    flatpak install -y flathub org.vinegarhq.Sober || true
+fi
+
+# 6. Stage semua file ke git agar Nix Flakes mengenali file baru
 git add -A
 
-# 6. Jalankan nixos-rebuild switch
+# 7. Jalankan nixos-rebuild switch
 echo "==> Membangun sistem NixOS dengan Flake..."
 sudo nixos-rebuild switch --flake ".#$TARGET_HOST"
 
 echo "=========================================================="
 echo "  Instalasi Selesai! Sistem siap digunakan.               "
-echo "  UI/UX telah diselaraskan dengan laptop sumber.          "
+echo "  UI/UX dan seluruh aplikasi telah diselaraskan.          "
 echo "=========================================================="

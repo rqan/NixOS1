@@ -7,6 +7,32 @@
 
   programs.home-manager.enable = true;
 
+  # Shell Configuration (Bash)
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      sober = "flatpak run org.vinegarhq.Sober";
+      sober-shader = "flatpak run --env=ENABLE_VKBASALT=1 org.vinegarhq.Sober";
+      lg = "lazygit";
+      ls = "eza --icons --group-directories-first";
+      ll = "eza --icons -l --group-directories-first";
+      la = "eza --icons -a --group-directories-first";
+    };
+    initExtra = ''
+      export PATH="$HOME/.local/bin:$HOME/.local/share/lerd/bin:$HOME/.opencode/bin:$HOME/.npm-global/bin:$PATH"
+    '';
+  };
+
+  # CLI Utilities
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
   home.packages = with pkgs; [
     foot
     quickshell
@@ -14,6 +40,8 @@
     xdg-user-dirs
     swaybg
     libnotify
+    vesktop
+    easyeffects
   ];
 
   home.sessionVariables = {
@@ -31,7 +59,7 @@
     };
     iconTheme = {
       name = "WhiteSur";
-      package = pkgs.whitesur-gtk-theme;
+      package = pkgs.whitesur-icon-theme;
     };
     cursorTheme = {
       name = "WhiteSur-cursors";
@@ -57,6 +85,7 @@
   xdg.configFile."gtk-4.0/settings.ini".source = ../dotfiles/gtk-4.0/settings.ini;
   xdg.configFile."gtk-4.0/gtk.css".source = ../dotfiles/gtk-4.0/gtk.css;
   xdg.configFile."gtk-4.0/thunar.css".source = ../dotfiles/gtk-4.0/thunar.css;
+  xdg.configFile."Code/User/settings.json".source = ../dotfiles/Code/User/settings.json;
 
   # Hyprland Config
   xdg.configFile."hypr".source = ../dotfiles/hypr;

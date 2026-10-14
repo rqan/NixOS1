@@ -151,6 +151,7 @@ create_bind(vars.kbTodoWs, fn.toggle("todo"))
 -- Apps
 create_bind(vars.kbTerminal, hl.dsp.exec_cmd(vars.terminal))
 create_bind(vars.kbBrowser, hl.dsp.exec_cmd(vars.browser))
+create_bind(vars.kbDiscord, hl.dsp.exec_cmd("vesktop"))
 create_bind(vars.kbEditor, hl.dsp.exec_cmd(vars.editor))
 create_bind(vars.kbFileExplorer, hl.dsp.exec_cmd(vars.fileExplorer))
 create_bind(vars.kbAudioSettings, hl.dsp.exec_cmd(vars.audioSettings))
@@ -275,3 +276,6 @@ create_bind(vars.kbRecordRegion, hl.dsp.exec_cmd("serpantinum screenshot --recor
 
 -- Poweroff
 create_bind("SUPER + XF86PowerOff", hl.dsp.exec_cmd("systemctl poweroff"), locked)
+
+-- Shader toggle
+create_bind(vars.kbToggleShader, hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle_shader.sh"))

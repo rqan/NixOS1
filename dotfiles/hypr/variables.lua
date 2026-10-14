@@ -8,9 +8,9 @@ return {
     -- Apps
     terminal                   = "kitty",
     browser = "brave",
-    editor                     = "codium",
+    editor                     = "code",
     fileExplorer               = "dolphin",
-    audioSettings              = "pwvucontrol",
+    audioSettings              = "pavucontrol",
 
     -- Touchpad
     touchpadDisableTyping      = true,
@@ -111,6 +111,7 @@ return {
     -- Apps
     kbTerminal                 = "SUPER + T",
     kbBrowser                  = "",  -- Removed: Super+B is now battery widget
+    kbDiscord                  = "SUPER + D",
     kbEditor                   = "SUPER + C",
     kbFileExplorer             = "SUPER + E",
     kbAudioSettings            = "CTRL + ALT + V",
@@ -146,4 +147,7 @@ return {
     kbClipboardDel             = "SUPER + ALT + V",
     kbClipboardPasteLatest     = "CTRL + SHIFT + ALT + V",
     kbEmoji                    = "SUPER + Period",
+
+    -- Shaders
+    kbToggleShader             = "SUPER + SHIFT + G",
 }
