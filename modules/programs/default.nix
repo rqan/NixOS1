@@ -3,28 +3,49 @@
 let
   spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
-  # Wrapper biner Antigravity yang cerdas: mendeteksi instalasi lokal atau mengunduhnya otomatis
+  # Wrappers biner Antigravity: IDE (Teks Editor) dan Dashboard (Antigravity 2.0 AI)
+  antigravityIdeWrapper = pkgs.writeShellScriptBin "antigravity-ide" ''
+    IDE_DIR="$HOME/.local/opt/Antigravity-x64"
+    if [ -x "$IDE_DIR/antigravity-ide" ]; then
+      exec "$IDE_DIR/antigravity-ide" "$@"
+    elif [ -x "$HOME/.local/bin/antigravity-ide" ]; then
+      exec "$HOME/.local/bin/antigravity-ide" "$@"
+    else
+      echo "Error: Biner Antigravity IDE (Teks Editor) tidak ditemukan." >&2
+      exit 1
+    fi
+  '';
+
+  antigravityDashboardWrapper = pkgs.writeShellScriptBin "antigravity-dashboard" ''
+    HUB_DIR="$HOME/.local/opt/Antigravity-Hub-x64"
+    if [ -x "$HUB_DIR/antigravity" ]; then
+      exec "$HUB_DIR/antigravity" "$@"
+    elif [ -x "$HOME/.local/bin/antigravity-dashboard" ]; then
+      exec "$HOME/.local/bin/antigravity-dashboard" "$@"
+    elif [ -x "$HOME/.local/bin/antigravity-hub" ]; then
+      exec "$HOME/.local/bin/antigravity-hub" "$@"
+    else
+      echo "Error: Biner Antigravity Dashboard tidak ditemukan." >&2
+      exit 1
+    fi
+  '';
+
   antigravityWrapper = pkgs.writeShellScriptBin "antigravity" ''
-    OPT_DIR="$HOME/.local/opt/Antigravity-x64"
-    if [ ! -d "$OPT_DIR" ]; then
-      if [ -f "$HOME/GitHub/NixOS/scripts/install-antigravity.sh" ]; then
-        echo "==> Antigravity IDE belum terpasang. Menjalankan installer otomatis..." >&2
-        bash "$HOME/GitHub/NixOS/scripts/install-antigravity.sh"
+    HUB_DIR="$HOME/.local/opt/Antigravity-Hub-x64"
+    IDE_DIR="$HOME/.local/opt/Antigravity-x64"
+
+    # Jika dipanggil dengan path file/folder, utamakan membuka di IDE (editor)
+    if [ "$#" -gt 0 ]; then
+      if [ -x "$IDE_DIR/antigravity-ide" ]; then
+        exec "$IDE_DIR/antigravity-ide" "$@"
       fi
     fi
 
-    if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
-      if [ -x "$OPT_DIR/bin/antigravity-ide" ]; then
-        exec "$OPT_DIR/bin/antigravity-ide" "$@"
-      fi
-    fi
-
-    if [ -x "$OPT_DIR/antigravity" ]; then
-      exec "$OPT_DIR/antigravity" "$@"
-    elif [ -x "$OPT_DIR/antigravity-ide" ]; then
-      exec "$OPT_DIR/antigravity-ide" "$@"
-    elif [ -x "$HOME/.local/bin/antigravity" ]; then
-      exec "$HOME/.local/bin/antigravity" "$@"
+    # Jika tanpa argumen, utamakan Dashboard jika tersedia, fallback ke IDE
+    if [ -x "$HUB_DIR/antigravity" ]; then
+      exec "$HUB_DIR/antigravity" "$@"
+    elif [ -x "$IDE_DIR/antigravity-ide" ]; then
+      exec "$IDE_DIR/antigravity-ide" "$@"
     else
       echo "Error: Biner Antigravity tidak ditemukan." >&2
       exit 1
@@ -109,6 +130,8 @@ in
   environment.systemPackages = [
     # Custom Wrappers
     antigravityWrapper
+    antigravityIdeWrapper
+    antigravityDashboardWrapper
 
     # Custom Desktop Shortcuts (.desktop)
     (pkgs.makeDesktopItem {
@@ -118,21 +141,21 @@ in
       mimeTypes = [ "x-scheme-handler/x-github-client" ];
     })
     (pkgs.makeDesktopItem {
-      name = "sober-shader";
-      desktopName = "Roblox (Sober + Shader & Gamescope)";
-      comment = "Play Roblox with vkBasalt and Gamescope";
-      exec = "env ENABLE_VKBASALT=1 gamescope -W 1920 -H 1080 -r 60 -F fsr -- flatpak run org.vinegarhq.Sober";
-      icon = "org.vinegarhq.Sober";
-      categories = [ "Game" ];
-    })
-    (pkgs.makeDesktopItem {
-      name = "antigravity";
-      desktopName = "Antigravity";
-      comment = "Google Antigravity IDE";
-      exec = "antigravity %F";
+      name = "antigravity-ide";
+      desktopName = "Antigravity GUI (Text Editor)";
+      comment = "Google Antigravity IDE (Code Editor)";
+      exec = "antigravity-ide %F";
       icon = "antigravity";
       categories = [ "Development" "IDE" "TextEditor" ];
       mimeTypes = [ "text/plain" "inode/directory" ];
+    })
+    (pkgs.makeDesktopItem {
+      name = "antigravity-dashboard";
+      desktopName = "Antigravity GUI (Dashboard)";
+      comment = "Google Antigravity 2.0 (AI Agent Dashboard)";
+      exec = "antigravity-dashboard";
+      icon = "antigravity";
+      categories = [ "Development" "ArtificialIntelligence" "Utility" ];
     })
     (pkgs.makeDesktopItem {
       name = "lerd";
@@ -154,6 +177,7 @@ in
 
     # Komunikasi
     pkgs.vesktop
+    pkgs.telegram-desktop
 
     # Pemrograman & Developer Tools
     pkgs.proton-vpn

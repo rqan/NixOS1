@@ -45,6 +45,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = { inherit spicetify-nix; };
             home-manager.users.focarix = import ./home;
           }
@@ -58,7 +59,8 @@
         laptop  = mkSystem ./hosts/laptop;
 
         # Host profil generic / PC baru
-        generic = mkSystem ./hosts/generic;
+        generic      = mkSystem ./hosts/generic;
+        "focarix-pc" = mkSystem ./hosts/generic;
       };
     };
 }

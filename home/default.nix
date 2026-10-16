@@ -106,12 +106,25 @@
 
   # Activation hooks: Pastikan file writable, aset visual tersedia, & lock file bersih
   home.activation.setupSerpantinumAndAssets = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    # 1. Bersihkan file lock Chromium/Electron (Brave, Edge, Code, Antigravity) yang memblokir startup jika disalin antar-komputer
-    $DRY_RUN_CMD rm -f "$HOME/.config/BraveSoftware/Brave-Browser/Singleton"* 2>/dev/null || true
-    $DRY_RUN_CMD rm -f "$HOME/.config/microsoft-edge/Singleton"* 2>/dev/null || true
-    $DRY_RUN_CMD rm -f "$HOME/.config/google-chrome/Singleton"* 2>/dev/null || true
-    $DRY_RUN_CMD rm -f "$HOME/.config/Code/Singleton"* 2>/dev/null || true
-    $DRY_RUN_CMD rm -f "$HOME/.config/Antigravity/Singleton"* 2>/dev/null || true
+    # 1. Bersihkan file lock Chromium/Electron hanya jika aplikasinya TIDAK sedang aktif (mencegah tabrakan profil)
+    if ! pgrep -x brave >/dev/null 2>&1; then
+      $DRY_RUN_CMD rm -f "$HOME/.config/BraveSoftware/Brave-Browser/Singleton"* 2>/dev/null || true
+    fi
+    if ! pgrep -x msedge >/dev/null 2>&1; then
+      $DRY_RUN_CMD rm -f "$HOME/.config/microsoft-edge/Singleton"* 2>/dev/null || true
+    fi
+    if ! pgrep -x chrome >/dev/null 2>&1; then
+      $DRY_RUN_CMD rm -f "$HOME/.config/google-chrome/Singleton"* 2>/dev/null || true
+    fi
+    if ! pgrep -x code >/dev/null 2>&1; then
+      $DRY_RUN_CMD rm -f "$HOME/.config/Code/Singleton"* 2>/dev/null || true
+    fi
+    if ! pgrep -x antigravity >/dev/null 2>&1; then
+      $DRY_RUN_CMD rm -f "$HOME/.config/Antigravity/Singleton"* 2>/dev/null || true
+    fi
+    if ! pgrep -x spotify >/dev/null 2>&1; then
+      $DRY_RUN_CMD rm -f "$HOME/.cache/spotify/Singleton"* 2>/dev/null || true
+    fi
 
     # 2. Serpantinum settings (harus writable agar UI bisa update konfigurasi)
     $DRY_RUN_CMD mkdir -p $HOME/.config/serpantinum

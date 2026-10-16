@@ -6,7 +6,7 @@
       "ip": "103.162.220.238",
       "latitude": -7.6298,
       "longitude": 111.5239,
-      "city": "Madiun",
+      "city": "Magetan",
       "region": "East Java",
       "region_code": "JI",
       "country_name": "Indonesia",
@@ -28,7 +28,7 @@
     "quickactions": true,
     "weatherInterval": 15,
     "weatherUnit": "metric",
-    "desktopLyrics": false
+    "desktopLyrics": true
   },
   "notifications": {
     "dnd": false,
@@ -157,4 +157,3 @@
     "smartRanking": true
   }
 }
-
