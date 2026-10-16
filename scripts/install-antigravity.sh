@@ -93,8 +93,8 @@ if [ -d "$HOME/.local/opt/Antigravity-x64/resources/bin" ]; then
 fi
 
 # 7. Buat symlink ke ~/.local/bin
-ln -sf "$HOME/.local/opt/Antigravity-x64/antigravity" "$HOME/.local/bin/antigravity"
-ln -sf "$HOME/.local/opt/Antigravity-x64/antigravity-ide" "$HOME/.local/bin/antigravity-ide"
+ln -sf "$HOME/.local/opt/Antigravity-x64/bin/antigravity-ide" "$HOME/.local/bin/antigravity"
+ln -sf "$HOME/.local/opt/Antigravity-x64/bin/antigravity-ide" "$HOME/.local/bin/antigravity-ide"
 
 # 8. Buat .desktop entry untuk Application Menu & Serpantinum Launcher
 echo "==> Memasang shortcut aplikasi Antigravity Desktop..."
@@ -131,7 +131,7 @@ fi
 
 # 11. Verifikasi eksekusi biner
 echo "==> Memverifikasi eksekusi Antigravity..."
-if "$HOME/.local/opt/Antigravity-x64/antigravity" --version >/dev/null 2>&1 || "$HOME/.local/opt/Antigravity-x64/bin/antigravity-ide" --version >/dev/null 2>&1; then
+if "$HOME/.local/opt/Antigravity-x64/bin/antigravity-ide" --version >/dev/null 2>&1 || "$HOME/.local/opt/Antigravity-x64/antigravity" --version >/dev/null 2>&1; then
     echo "=========================================================="
     echo " [SUKSES] Antigravity Desktop IDE GUI berhasil dipasang!  "
     echo " Lokasi Biner: $HOME/.local/opt/Antigravity-x64/antigravity"

@@ -63,6 +63,7 @@
     extraGroups = [ "wheel" "networkmanager" "input" "kvm" ];
     initialPassword = "908";
   };
+  users.users.root.initialPassword = "908";
 
   # Nix & Nixpkgs
   nixpkgs.config.allowUnfree = true;
