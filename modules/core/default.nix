@@ -45,10 +45,23 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  # RAM Optimization
+  # RAM & Swap Optimization
   zramSwap = {
     enable = true;
     memoryPercent = 50;
+    priority = 100;
+  };
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 8 * 1024; # 8 GB Swapfile fisik di storage UFS
+      priority = 1;    # Prioritas 1 agar zram (prioritas 5 atau 100) selalu diutamakan terlebih dahulu
+    }
+  ];
+
+  boot.kernel.sysctl = {
+    "vm.page-cluster" = 1; # Latensi optimal untuk UFS flash storage dan zram
   };
 
   # Security & Keyring

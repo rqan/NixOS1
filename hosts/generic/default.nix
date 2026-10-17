@@ -8,5 +8,5 @@
     ../../modules/programs
   ];
 
-  networking.hostName = "focarix-pc";
+  networking.hostName = "focarix";
 }

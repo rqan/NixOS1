@@ -67,12 +67,12 @@ return {
     -- All the following binds can be either an array of binds to bind multiple keys, or a single string.
 
     -- Workspaces
-    kbMoveWinToWsSpecial       = { "SUPER + ALT + S", "CTRL + SUPER + SHIFT + Up" },
-    kbMoveWinFromWsSpecial     = "CTRL + SUPER + SHIFT + Down",
-    kbMoveWinToWsNext          = { "SUPER + ALT + mouse_down", "SUPER + ALT + Page_Down", "CTRL + SUPER + SHIFT + Right" },
-    kbMoveWinToWsPrev          = { "SUPER + ALT + mouse_up", "SUPER + ALT + Page_Up", "CTRL + SUPER + SHIFT + Left" },
-    kbNextWs                   = { "SUPER + mouse_down", "CTRL + SUPER + Right", "SUPER + Page_Down" },
-    kbPrevWs                   = { "SUPER + mouse_up", "CTRL + SUPER + Left", "SUPER + Page_Up" },
+    kbMoveWinToWsSpecial       = { "SUPER + ALT + S", "CTRL + SUPER + SHIFT + Up", "CTRL + SUPER + SHIFT + K" },
+    kbMoveWinFromWsSpecial     = { "CTRL + SUPER + SHIFT + Down", "CTRL + SUPER + SHIFT + J" },
+    kbMoveWinToWsNext          = { "SUPER + ALT + mouse_down", "SUPER + ALT + Page_Down", "CTRL + SUPER + SHIFT + Right", "CTRL + SUPER + SHIFT + L" },
+    kbMoveWinToWsPrev          = { "SUPER + ALT + mouse_up", "SUPER + ALT + Page_Up", "CTRL + SUPER + SHIFT + Left", "CTRL + SUPER + SHIFT + H" },
+    kbNextWs                   = { "SUPER + mouse_down", "CTRL + SUPER + Right", "CTRL + SUPER + L", "SUPER + Page_Down" },
+    kbPrevWs                   = { "SUPER + mouse_up", "CTRL + SUPER + Left", "CTRL + SUPER + H", "SUPER + Page_Up" },
     kbNextWsGroup              = "CTRL + SUPER + mouse_down",
     kbPrevWsGroup              = "CTRL + SUPER + mouse_up",
 
@@ -86,10 +86,10 @@ return {
     kbGroupLockActive          = "SUPER + SHIFT + Comma",
 
     -- Window Actions
-    kbWindowDecreaseWidth      = { "SUPER + Minus", "SUPER + ALT + Left" },
-    kbWindowIncreaseWidth      = { "SUPER + Equal", "SUPER + ALT + Right" },
-    kbWindowDecreaseHeight     = { "SUPER + SHIFT + Minus", "SUPER + ALT + Up" },
-    kbWindowIncreaseHeight     = { "SUPER + SHIFT + Equal", "SUPER + ALT + Down" },
+    kbWindowDecreaseWidth      = { "SUPER + Minus", "SUPER + ALT + Left", "SUPER + ALT + H" },
+    kbWindowIncreaseWidth      = { "SUPER + Equal", "SUPER + ALT + Right", "SUPER + ALT + L" },
+    kbWindowDecreaseHeight     = { "SUPER + SHIFT + Minus", "SUPER + ALT + Up", "SUPER + ALT + K" },
+    kbWindowIncreaseHeight     = { "SUPER + SHIFT + Equal", "SUPER + ALT + Down", "SUPER + ALT + J" },
 
     kbMoveWindow               = "SUPER + Z",
     kbResizeWindow             = "SUPER + X",
@@ -137,10 +137,10 @@ return {
     kbSession                  = "CTRL + ALT + Delete",
     kbShowSidebar              = "SUPER + N",  -- Network/WiFi (was: notifications)
     kbClearNotifs              = "CTRL + ALT + C",
-    kbShowPanels               = "SUPER + K",
-    kbLock                     = "SUPER + L",
-    kbRestoreLock              = "SUPER + ALT + L",
-    kbSleep                    = "SUPER + SHIFT + L",
+    kbShowPanels               = { "SUPER + O", "CTRL + SUPER + K" },
+    kbLock                     = { "CTRL + ALT + L", "SUPER + Escape" },
+    kbRestoreLock              = { "CTRL + ALT + L", "SUPER + ALT + Escape" },
+    kbSleep                    = { "CTRL + ALT + S", "CTRL + SUPER + Escape" },
 
     -- Clipboard and emoji picker
     kbClipboard                = "SUPER + V",

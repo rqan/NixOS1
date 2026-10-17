@@ -106,10 +106,22 @@ create_bind(vars.kbToggleGroup, hl.dsp.group.toggle())
 create_bind(vars.kbUngroup, hl.dsp.window.move({ out_of_group = true }))
 create_bind(vars.kbGroupLockActive, hl.dsp.group.lock_active())
 
--- Window actions
-for _, dir in ipairs({ "left", "right", "up", "down" }) do
-    create_bind("SUPER + " .. dir, hl.dsp.focus({ direction = dir }))
-    create_bind("SUPER + SHIFT + " .. dir, hl.dsp.window.move({ direction = dir }))
+-- Window actions (Focus & Move using Arrow keys and Vim keys H/J/K/L)
+local directions = {
+    { keys = { "Left", "H" },  dir = "left" },
+    { keys = { "Right", "L" }, dir = "right" },
+    { keys = { "Up", "K" },     dir = "up" },
+    { keys = { "Down", "J" },   dir = "down" },
+}
+for _, d in ipairs(directions) do
+    local focus_binds = {}
+    local move_binds = {}
+    for _, k in ipairs(d.keys) do
+        table.insert(focus_binds, "SUPER + " .. k)
+        table.insert(move_binds, "SUPER + SHIFT + " .. k)
+    end
+    create_bind(focus_binds, hl.dsp.focus({ direction = d.dir }))
+    create_bind(move_binds, hl.dsp.window.move({ direction = d.dir }))
 end
 
 create_bind(vars.kbWindowDecreaseWidth, fn.resize_active_window(-10, 0), repeating)
@@ -128,7 +140,7 @@ create_bind(vars.kbWindowPip, function()
     local a = hl.get_active_window()
     if a then
         local pip = fn.move_actions(a) or {}
-        if not a.floating then table.insert(pip, 1, hl.dsp.window.float()) end
+        if not a.floating then table.insert(pip, 1, hl.dsp.window.float({ action = "toggle" })) end
         table.insert(pip, hl.dsp.window.pin({ action = "on", window = "address:" .. a.address }))
 
         for _, x in ipairs(pip) do
@@ -139,7 +151,7 @@ end)
 create_bind(vars.kbPinWindow, hl.dsp.window.pin())
 create_bind(vars.kbWindowFullscreen, hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 create_bind(vars.kbWindowBorderedFullscreen, hl.dsp.window.fullscreen({ mode = "maximized" }))
-create_bind(vars.kbToggleWindowFloating, hl.dsp.window.float())
+create_bind(vars.kbToggleWindowFloating, hl.dsp.window.float({ action = "toggle" }))
 create_bind(vars.kbCloseWindow, hl.dsp.window.close())
 
 -- Special workspace toggles

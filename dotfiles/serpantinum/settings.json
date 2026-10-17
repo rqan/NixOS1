@@ -30,6 +30,22 @@
     "weatherUnit": "metric",
     "desktopLyrics": true
   },
+  "desktopLyrics": {
+    "enabled": true,
+    "mode": "cursor",
+    "x": 100,
+    "y": 100,
+    "fontFamily": "Georgia, serif",
+    "fontSize": 52,
+    "fontWeight": "Black",
+    "fontItalic": false,
+    "color": "#ffffff",
+    "opacity": 85,
+    "alignment": "center",
+    "maxLines": 2,
+    "shadow": true,
+    "showTestLyric": false
+  },
   "notifications": {
     "dnd": false,
     "position": "bottom right",

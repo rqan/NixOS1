@@ -62,6 +62,7 @@ hl.window_rule({
 -- Opaque apps
 tagged_rule(opaque_tag, {
     "foot",                          -- Terminal
+    "kitty",                         -- Terminal
     "equibop",                       -- Discord client
     "org.quickshell",                -- Quickshell
     "feh|imv|swappy",                -- Image viewers
@@ -154,6 +155,7 @@ tagged_rule(todo_app_tag, {
 -----------------------
 ---- Per app rules ----
 hl.window_rule({ match = { class = "spotify|Spotify" }, opacity = "0.5 override" })
+hl.window_rule({ match = { class = "antigravity" }, opacity = "0.75 override" })
 -----------------------
 
 -- Steam

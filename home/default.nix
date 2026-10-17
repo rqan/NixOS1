@@ -20,6 +20,11 @@
     };
     initExtra = ''
       export PATH="$HOME/.local/bin:$HOME/.local/share/lerd/bin:$HOME/.opencode/bin:$HOME/.npm-global/bin:$PATH"
+
+      # Jalankan fastfetch hanya pada sesi terminal interaktif
+      if [[ $- == *i* ]]; then
+        fastfetch
+      fi
     '';
   };
 
